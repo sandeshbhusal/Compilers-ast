@@ -108,6 +108,16 @@ public interface ExtendedStaticJavaListener extends ParseTreeListener {
 	 */
 	void exitType(ExtendedStaticJavaParser.TypeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ExtendedStaticJavaParser#arrayType}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExtendedStaticJavaParser#arrayType}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code BooleanType}
 	 * labeled alternative in {@link ExtendedStaticJavaParser#basicType}.
 	 * @param ctx the parse tree
@@ -131,16 +141,6 @@ public interface ExtendedStaticJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIntType(ExtendedStaticJavaParser.IntTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ExtendedStaticJavaParser#arrayType}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExtendedStaticJavaParser#arrayType}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code VoidType}
 	 * labeled alternative in {@link ExtendedStaticJavaParser#returnType}.

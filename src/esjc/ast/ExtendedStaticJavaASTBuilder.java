@@ -49,11 +49,13 @@ public class ExtendedStaticJavaASTBuilder extends
     ExtendedStaticJavaASTBuilder.binopMap.put("*", InfixExpression.Operator.TIMES);
     ExtendedStaticJavaASTBuilder.binopMap.put("/", InfixExpression.Operator.DIVIDE);
     ExtendedStaticJavaASTBuilder.binopMap.put("%", InfixExpression.Operator.REMAINDER);
+    ExtendedStaticJavaASTBuilder.binopMap.put(">>>", InfixExpression.Operator.RIGHT_SHIFT_UNSIGNED);
 
     unopMap = new HashMap<>(4);
     ExtendedStaticJavaASTBuilder.unopMap.put("+", PrefixExpression.Operator.PLUS);
     ExtendedStaticJavaASTBuilder.unopMap.put("-", PrefixExpression.Operator.MINUS);
     ExtendedStaticJavaASTBuilder.unopMap.put("!", PrefixExpression.Operator.NOT);
+    ExtendedStaticJavaASTBuilder.unopMap.put("~", PrefixExpression.Operator.COMPLEMENT);
   }
 
   protected AST ast = AST.newAST(AST.JLS10);
@@ -94,13 +96,6 @@ public class ExtendedStaticJavaASTBuilder extends
   }
 
   @Override
-  public ArrayType visitArrayType(final ExtendedStaticJavaParser.ArrayTypeContext ctx) {
-    // Return an array type.
-    final ArrayType rval = this.ast.newArrayType(this.build(ctx));
-    return rval;
-  }
-
-  @Override
   public InfixExpression visitBinaryExp(final ExtendedStaticJavaParser.BinaryExpContext ctx) {
     final InfixExpression result = this.ast.newInfixExpression();
 
@@ -116,6 +111,11 @@ public class ExtendedStaticJavaASTBuilder extends
   @Override
   public PrimitiveType visitBooleanType(final ExtendedStaticJavaParser.BooleanTypeContext ctx) {
     return this.ast.newPrimitiveType(PrimitiveType.BOOLEAN);
+  }
+
+  @Override
+  public ArrayType visitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx) {
+    return this.ast.newArrayType(this.build(ctx.type()));
   }
 
   @Override
@@ -311,16 +311,6 @@ public class ExtendedStaticJavaASTBuilder extends
 
     return result;
   }
-
-//  @Override public Type visitType(ExtendedStaticJavaParser.TypeContext ctx) {
-//    if (ctx.identifier != null) {
-//      final Name name = this.ast.newSimpleName(ctx.identifier.getText());
-//      return this.ast.newSimpleType(name);
-//    } {
-//      // Let the visitor do the rest of the work here.
-//      return this.build(ctx.basicType());
-//    }
-//  }
 
   @Override public ClassInstanceCreation visitNewExp(ExtendedStaticJavaParser.NewExpContext ctx) {
     final ClassInstanceCreation rval = this.ast.newClassInstanceCreation();

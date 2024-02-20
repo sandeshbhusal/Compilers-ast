@@ -137,6 +137,18 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBooleanType(ExtendedStaticJavaParser.BooleanTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -156,18 +168,6 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIntType(ExtendedStaticJavaParser.IntTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -71,6 +71,12 @@ public interface ExtendedStaticJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(ExtendedStaticJavaParser.TypeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#arrayType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code BooleanType}
 	 * labeled alternative in {@link ExtendedStaticJavaParser#basicType}.
 	 * @param ctx the parse tree
@@ -84,12 +90,6 @@ public interface ExtendedStaticJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIntType(ExtendedStaticJavaParser.IntTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#arrayType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code VoidType}
 	 * labeled alternative in {@link ExtendedStaticJavaParser#returnType}.
