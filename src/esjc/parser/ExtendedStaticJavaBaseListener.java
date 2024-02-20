@@ -161,6 +161,18 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVoidType(ExtendedStaticJavaParser.VoidTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -437,30 +449,6 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdExp(ExtendedStaticJavaParser.IdExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIdExp(ExtendedStaticJavaParser.IdExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCondExp(ExtendedStaticJavaParser.CondExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCondExp(ExtendedStaticJavaParser.CondExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterArrayAccessExp(ExtendedStaticJavaParser.ArrayAccessExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -485,6 +473,78 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterShiftLeftExp(ExtendedStaticJavaParser.ShiftLeftExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitShiftLeftExp(ExtendedStaticJavaParser.ShiftLeftExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnsignedShiftRightExp(ExtendedStaticJavaParser.UnsignedShiftRightExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnsignedShiftRightExp(ExtendedStaticJavaParser.UnsignedShiftRightExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBinaryExp(ExtendedStaticJavaParser.BinaryExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBinaryExp(ExtendedStaticJavaParser.BinaryExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdExp(ExtendedStaticJavaParser.IdExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdExp(ExtendedStaticJavaParser.IdExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCondExp(ExtendedStaticJavaParser.CondExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCondExp(ExtendedStaticJavaParser.CondExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterParenExp(ExtendedStaticJavaParser.ParenExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -492,6 +552,18 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParenExp(ExtendedStaticJavaParser.ParenExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterShiftRightExp(ExtendedStaticJavaParser.ShiftRightExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitShiftRightExp(ExtendedStaticJavaParser.ShiftRightExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -552,18 +624,6 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNewExp(ExtendedStaticJavaParser.NewExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBinaryExp(ExtendedStaticJavaParser.BinaryExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBinaryExp(ExtendedStaticJavaParser.BinaryExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

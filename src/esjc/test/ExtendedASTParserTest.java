@@ -79,6 +79,16 @@ public class ExtendedASTParserTest {
       final Diff.change script = diff.diff_2(false);
       final DiffPrint.Base b = new DiffPrint.UnifiedPrint(resultStrings,
           expectedStrings);
+      System.out.println();
+      System.out.println("----- Here's what you generated:");
+      for (Object o: resultStrings) {
+        System.out.println(o.toString());
+      }
+      System.out.println("----- Here's what was expected");
+      for (Object o: expectedStrings) {
+        System.out.println(o.toString());
+      }
+      System.out.println("------");
       if (script == null) {
         System.out.println("*** End PASSING test: " + filename);
         System.out.println();
@@ -95,7 +105,15 @@ public class ExtendedASTParserTest {
 
     } catch (final Exception e) {
       System.out.println("Exception " + e + " caught while processing "
-          + filename);
+          + filename );
+      for (StackTraceElement elem: e.getStackTrace()) {
+        if (elem.toString().contains("esjc.ast")) {
+          System.out.println(elem.toString());
+        }
+      }
+
+      System.out.println("------------------- End of stack trace ---------------------");
+
       System.out.println("*** End FAILING testing: " + filename);
       System.out.println();
       System.out.flush();

@@ -132,6 +132,16 @@ public interface ExtendedStaticJavaListener extends ParseTreeListener {
 	 */
 	void exitIntType(ExtendedStaticJavaParser.IntTypeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ExtendedStaticJavaParser#arrayType}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExtendedStaticJavaParser#arrayType}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code VoidType}
 	 * labeled alternative in {@link ExtendedStaticJavaParser#returnType}.
 	 * @param ctx the parse tree
@@ -372,30 +382,6 @@ public interface ExtendedStaticJavaListener extends ParseTreeListener {
 	 */
 	void exitLiteralExp(ExtendedStaticJavaParser.LiteralExpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code IdExp}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdExp(ExtendedStaticJavaParser.IdExpContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code IdExp}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdExp(ExtendedStaticJavaParser.IdExpContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code CondExp}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterCondExp(ExtendedStaticJavaParser.CondExpContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CondExp}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitCondExp(ExtendedStaticJavaParser.CondExpContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code ArrayAccessExp}
 	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
 	 * @param ctx the parse tree
@@ -420,6 +406,78 @@ public interface ExtendedStaticJavaListener extends ParseTreeListener {
 	 */
 	void exitInvokeExp(ExtendedStaticJavaParser.InvokeExpContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ShiftLeftExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterShiftLeftExp(ExtendedStaticJavaParser.ShiftLeftExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ShiftLeftExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitShiftLeftExp(ExtendedStaticJavaParser.ShiftLeftExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnsignedShiftRightExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnsignedShiftRightExp(ExtendedStaticJavaParser.UnsignedShiftRightExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnsignedShiftRightExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnsignedShiftRightExp(ExtendedStaticJavaParser.UnsignedShiftRightExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ArrayCreationExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArrayCreationExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BinaryExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterBinaryExp(ExtendedStaticJavaParser.BinaryExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BinaryExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitBinaryExp(ExtendedStaticJavaParser.BinaryExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IdExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdExp(ExtendedStaticJavaParser.IdExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IdExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdExp(ExtendedStaticJavaParser.IdExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondExp(ExtendedStaticJavaParser.CondExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondExp(ExtendedStaticJavaParser.CondExpContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ParenExp}
 	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
 	 * @param ctx the parse tree
@@ -431,6 +489,18 @@ public interface ExtendedStaticJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParenExp(ExtendedStaticJavaParser.ParenExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ShiftRightExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterShiftRightExp(ExtendedStaticJavaParser.ShiftRightExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ShiftRightExp}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitShiftRightExp(ExtendedStaticJavaParser.ShiftRightExpContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code IntLiteral}
 	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
@@ -491,18 +561,6 @@ public interface ExtendedStaticJavaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNewExp(ExtendedStaticJavaParser.NewExpContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code BinaryExp}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterBinaryExp(ExtendedStaticJavaParser.BinaryExpContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code BinaryExp}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitBinaryExp(ExtendedStaticJavaParser.BinaryExpContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ExtendedStaticJavaParser#arrayInit}.
 	 * @param ctx the parse tree

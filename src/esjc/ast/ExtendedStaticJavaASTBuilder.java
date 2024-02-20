@@ -5,32 +5,7 @@ import java.util.List;
 
 import esjc.parser.*;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.Assignment;
-import org.eclipse.jdt.core.dom.Block;
-import org.eclipse.jdt.core.dom.BooleanLiteral;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.ExpressionStatement;
-import org.eclipse.jdt.core.dom.FieldDeclaration;
-import org.eclipse.jdt.core.dom.IfStatement;
-import org.eclipse.jdt.core.dom.InfixExpression;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.jdt.core.dom.Modifier;
-import org.eclipse.jdt.core.dom.NullLiteral;
-import org.eclipse.jdt.core.dom.NumberLiteral;
-import org.eclipse.jdt.core.dom.ParenthesizedExpression;
-import org.eclipse.jdt.core.dom.PrefixExpression;
-import org.eclipse.jdt.core.dom.PrimitiveType;
-import org.eclipse.jdt.core.dom.ReturnStatement;
-import org.eclipse.jdt.core.dom.SimpleName;
-import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
-import org.eclipse.jdt.core.dom.Type;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
-import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
-import org.eclipse.jdt.core.dom.WhileStatement;
+import org.eclipse.jdt.core.dom.*;
 
 /**
  * This class builds JDT AST from ANTLR Parse Tree produced by
@@ -112,10 +87,17 @@ public class ExtendedStaticJavaASTBuilder extends
     final ExpressionStatement result = this.ast.newExpressionStatement(a);
 
     a.setLeftHandSide(this.ast.newSimpleName(ctx.assign().lhs().getText()));
-
+//    a.setLeftHandSide(this.build(ctx.assign().lhs()));
     a.setRightHandSide(this.build(ctx.assign().exp()));
 
     return result;
+  }
+
+  @Override
+  public ArrayType visitArrayType(final ExtendedStaticJavaParser.ArrayTypeContext ctx) {
+    // Return an array type.
+    final ArrayType rval = this.ast.newArrayType(this.build(ctx));
+    return rval;
   }
 
   @Override
@@ -230,6 +212,62 @@ public class ExtendedStaticJavaASTBuilder extends
   }
 
   @Override
+  public QualifiedName visitFieldAccessExp(ExtendedStaticJavaParser.FieldAccessExpContext ctx) {
+    return this.ast.newQualifiedName(this.build(ctx), this.ast.newSimpleName(ctx.id.getText()));
+  }
+
+  @Override
+  public ArrayAccess visitArrayAccessExp(ExtendedStaticJavaParser.ArrayAccessExpContext ctx) {
+    final ArrayAccess aac = this.ast.newArrayAccess();
+
+    aac.setArray(this.build(ctx.id));
+    aac.setIndex(this.build(ctx.inner));
+
+    return aac;
+  }
+
+
+  @Override
+  public ArrayCreation visitArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx) {
+    final ArrayCreation arr = this.ast.newArrayCreation();
+    arr.setType(this.build(ctx.typeid));
+    final ArrayInitializer init = this.ast.newArrayInitializer();
+    arr.setInitializer(init);
+
+    if (ctx.initexpr.exp() != null){
+      builds(init.expressions(), ctx.initexpr.exp());
+    }
+
+    return arr;
+  }
+
+  @Override
+  public ConditionalExpression visitCondExp(ExtendedStaticJavaParser.CondExpContext ctx) {
+    final ConditionalExpression expr = this.ast.newConditionalExpression();
+    expr.setExpression(this.build(ctx.condition));
+    expr.setThenExpression(this.build(ctx.p1));
+    expr.setElseExpression(this.build(ctx.p2));
+
+    return expr;
+  }
+
+  @Override
+  public DoStatement visitDoWhileStatement(ExtendedStaticJavaParser.DoWhileStatementContext ctx) {
+    final DoStatement statement = this.ast.newDoStatement();
+    final Block codeblock = this.ast.newBlock();
+
+    statement.setExpression(this.build(ctx.exp()));
+    statement.setBody(codeblock);
+
+    final List<ExtendedStaticJavaParser.StatementContext> statements = ctx.contents;
+    if (statements != null) {
+      builds(codeblock.statements(), statements);
+    }
+
+    return statement;
+  }
+
+  @Override
   public MethodInvocation visitInvoke(final ExtendedStaticJavaParser.InvokeContext ctx) {
     final MethodInvocation result = this.ast.newMethodInvocation();
 
@@ -272,6 +310,22 @@ public class ExtendedStaticJavaASTBuilder extends
     vdf.setName(this.ast.newSimpleName(ctx.ID().getText()));
 
     return result;
+  }
+
+//  @Override public Type visitType(ExtendedStaticJavaParser.TypeContext ctx) {
+//    if (ctx.identifier != null) {
+//      final Name name = this.ast.newSimpleName(ctx.identifier.getText());
+//      return this.ast.newSimpleType(name);
+//    } {
+//      // Let the visitor do the rest of the work here.
+//      return this.build(ctx.basicType());
+//    }
+//  }
+
+  @Override public ClassInstanceCreation visitNewExp(ExtendedStaticJavaParser.NewExpContext ctx) {
+    final ClassInstanceCreation rval = this.ast.newClassInstanceCreation();
+    rval.setType(this.ast.newSimpleType(this.ast.newSimpleName(ctx.name.getText())));
+    return rval;
   }
 
   @Override

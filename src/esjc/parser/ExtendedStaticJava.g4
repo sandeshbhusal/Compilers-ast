@@ -40,11 +40,15 @@ methodDeclaration
   ;
 
 type
-  : ( basicType | ID ) ( '[' ']')?;
+  : ( typename = basicType | identifier = ID | arraytype = arrayType ) ( '[' ']')?;
 
 basicType
   : 'boolean'                #BooleanType
   | 'int'                    #IntType
+  ;
+
+arrayType
+  : ID '[' ']'
   ;
 
 returnType
@@ -105,7 +109,7 @@ incDec
   : lhs '++' | lhs '--';
 
 doWhileStatement
-  : 'do' '{' statement* '}'* 'while' '(' exp ')' ';';
+  : 'do' '{' contents+=statement* '}'* 'while' '(' exp ')' ';';
 
 booleanLiteral
   : 'true'      #TrueLiteral
@@ -131,37 +135,36 @@ returnStatement
 
 exp
   : INT                      { new java.math.BigInteger($INT.text).bitLength() < 32 }?
-                             #IntLiteral
-  | booleanLiteral           #LiteralExp
-//  | INT                      #IntLiteral
-  | 'null'                   #NullLiteral
-  | '(' exp ')'              #ParenExp
-  | invoke                   #InvokeExp
-  | ID                       #IdExp
-  | op=( '-' | '+' | '!' | '~' ) exp     #UnaryExp
+                                            #IntLiteral
+  | booleanLiteral                          #LiteralExp
+  | 'null'                                  #NullLiteral
+  | '(' exp ')'                             #ParenExp
+  | invoke                                  #InvokeExp
+  | ID                                      #IdExp
+  | op=( '-' | '+' | '!' | '~' ) exp        #UnaryExp
   | e1=exp
     op=( '*' | '/' | '%' )
-    e2=exp                   #BinaryExp
+    e2=exp                                  #BinaryExp
   | e1=exp
     op=( '+' | '-' )
-    e2=exp                   #BinaryExp
+    e2=exp                                  #BinaryExp
   | e1=exp
     op=( '<' | '>' | '<=' | '>=' )
-    e2=exp                   #BinaryExp
+    e2=exp                                  #BinaryExp
   | e1=exp
     op=( '==' | '!=' )
-    e2=exp                   #BinaryExp
-  | e1=exp op='&&' e2=exp    #BinaryExp
-  | e1=exp op='||' e2=exp    #BinaryExp
-  | e1=exp op='<<' e2=exp    #BinaryExp
-  | e1=exp op='>>' e2=exp    #BinaryExp
-  | e1=exp op='>>>' e2=exp    #BinaryExp
-  | condition=exp '?' p1=exp ':' p2=exp #CondExp
-  | e1=exp '.' ID #FieldAccessExp
-  | e1=exp '[' exp ']' #ArrayAccessExp
-  | 'new' ID '(' ')' #NewExp
-  | 'new' type '[' exp ']' #NewExp
-  | 'new' type '[' ']' arrayInit #NewExp
+    e2=exp                                  #BinaryExp
+  | e1=exp op='&&' e2=exp                   #BinaryExp
+  | e1=exp op='||' e2=exp                   #BinaryExp
+  | e1=exp op='<<' e2=exp                   #ShiftLeftExp
+  | e1=exp op='>>' e2=exp                   #ShiftRightExp
+  | e1=exp op='>>>' e2=exp                  #UnsignedShiftRightExp
+  | condition=exp '?' p1=exp ':' p2=exp     #CondExp
+  | e1=exp '.' id=ID                        #FieldAccessExp
+  | id=exp '[' inner=exp ']'                #ArrayAccessExp
+  | 'new' name=ID '(' ')'                        #NewExp
+  | 'new' typeid=type '[' exp ']'           #ArrayCreationExp
+  | 'new' typeid=type '[' ']' initexpr=arrayInit #ArrayCreationExp
   ;
 
 arrayInit
