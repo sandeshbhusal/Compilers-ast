@@ -141,12 +141,6 @@ public class ExtendedStaticJavaASTBuilder extends
 
   @Override
   public ArrayType visitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx) {
-//    if (ctx.size != null) {
-//      return this.ast.newArrayType(this.build(ctx.type()));
-//    }
-
-    // Check which path to traverse, based on what is present.
-    if (ctx.size == null) {
       if (ctx.booleanType() != null) {
         return this.ast.newArrayType(this.build(ctx.booleanType()));
       } else if (ctx.intType() != null) {
@@ -155,17 +149,6 @@ public class ExtendedStaticJavaASTBuilder extends
         // Should be an ID type.
         return this.ast.newArrayType(this.ast.newSimpleType(this.ast.newSimpleName(ctx.ID().getText())));
       }
-    } else {
-      int size = Integer.parseInt(ctx.size.getText());
-      if (ctx.booleanType() != null) {
-        return this.ast.newArrayType(this.build(ctx.booleanType()), size);
-      } else if (ctx.intType() != null) {
-        return this.ast.newArrayType(this.build(ctx.intType()), size);
-      } else {
-        // Should be an ID type.
-        return this.ast.newArrayType(this.ast.newSimpleType(this.ast.newSimpleName(ctx.ID().getText())), size);
-      }
-    }
   }
 
 
@@ -293,6 +276,10 @@ public class ExtendedStaticJavaASTBuilder extends
     // Can initialize if there is something to initialize.
     if (ctx.initexpr != null) {
       exp.setInitializer(this.build(ctx.initexpr));
+    }
+    if (ctx.arrayType().size != null) {
+      Expression e = this.build(ctx.arrayType().size);
+      exp.dimensions().add(e);
     }
     return exp;
   }
