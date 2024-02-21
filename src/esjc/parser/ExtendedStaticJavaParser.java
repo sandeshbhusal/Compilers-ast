@@ -2005,6 +2005,8 @@ public class ExtendedStaticJavaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class IncDecContext extends ParserRuleContext {
+		public LhsContext operand;
+		public Token operator;
 		public LhsContext lhs() {
 			return getRuleContext(LhsContext.class,0);
 		}
@@ -2038,18 +2040,18 @@ public class ExtendedStaticJavaParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(283);
-				lhs();
+				((IncDecContext)_localctx).operand = lhs();
 				setState(284);
-				match(T__17);
+				((IncDecContext)_localctx).operator = match(T__17);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(286);
-				lhs();
+				((IncDecContext)_localctx).operand = lhs();
 				setState(287);
-				match(T__18);
+				((IncDecContext)_localctx).operator = match(T__18);
 				}
 				break;
 			}

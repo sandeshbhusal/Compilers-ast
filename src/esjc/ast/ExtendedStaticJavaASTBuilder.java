@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import esjc.parser.*;
+import jdk.jfr.StackTrace;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.eclipse.jdt.core.dom.*;
 
@@ -67,7 +68,28 @@ public class ExtendedStaticJavaASTBuilder extends
 
   @SuppressWarnings("unchecked")
   private void add(@SuppressWarnings("rawtypes") final List l, final Object o) {
-    l.add(o);
+    try {
+      l.add(o);
+    } catch (Exception e) {
+      if (o == null) {
+        System.err.println("Trying to add a null object to a list.");
+        printStackTrace(e);
+        return;
+      }
+      System.err.println("Exception " + e.toString());
+      System.err.println("Type of list: " + l.get(2).getClass().toString());
+      System.err.println("------");
+      printStackTrace(e);
+    }
+  }
+
+  private void printStackTrace(Exception e) {
+    for (StackTraceElement el: e.getStackTrace())  {
+      if (el.toString().contains("esjc"))
+      {
+        System.err.println(el.toString());
+      }
+    }
   }
 
   @SuppressWarnings("unchecked")
@@ -150,12 +172,6 @@ public class ExtendedStaticJavaASTBuilder extends
         return this.ast.newArrayType(this.ast.newSimpleType(this.ast.newSimpleName(ctx.ID().getText())));
       }
   }
-
-
-//  @Override
-//  public SimpleType visitSimpleType(ExtendedStaticJavaParser.SimpleTypeContext ctx) {
-//    return this.ast.newSimpleType(this.ast.newSimpleName(ctx.getText()));
-//  }
 
   @Override
   public TypeDeclaration visitClassDefinition(final ExtendedStaticJavaParser.ClassDefinitionContext ctx) {
@@ -363,6 +379,18 @@ public class ExtendedStaticJavaASTBuilder extends
     }
 
     return result;
+  }
+
+
+  @Override public ExpressionStatement visitIncDecStatement(ExtendedStaticJavaParser.IncDecStatementContext ctx) {
+    PostfixExpression exp = this.ast.newPostfixExpression();
+    exp.setOperand(this.build(ctx.incDec().operand));
+    switch (ctx.incDec().operator.getText()) {
+      case "--": exp.setOperator(PostfixExpression.Operator.DECREMENT); break;
+      case "++": exp.setOperator(PostfixExpression.Operator.INCREMENT); break;
+      default: throw new IllegalArgumentException("Illegal postfix operator");
+    };
+    return this.ast.newExpressionStatement(exp);
   }
 
   @Override

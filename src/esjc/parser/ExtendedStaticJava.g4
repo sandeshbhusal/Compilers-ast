@@ -112,7 +112,9 @@ forUpdates
   : incDec (',' incDec)*;
 
 incDec
-  : lhs '++' | lhs '--';
+  : operand=lhs operator='++'
+  | operand=lhs operator='--'
+  ;
 
 doWhileStatement
   : 'do' '{' contents+=statement* '}'* 'while' '(' exp ')' ';';
