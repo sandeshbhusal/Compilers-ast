@@ -284,19 +284,23 @@ public class ExtendedStaticJavaASTBuilder extends
   }
 
 
-//  @Override
-//  public ArrayCreation visitArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx) {
-//    final ArrayCreation arr = this.ast.newArrayCreation();
-//    arr.setType(this.build(ctx.type()));
-//    final ArrayInitializer init = this.ast.newArrayInitializer();
-//    arr.setInitializer(init);
-//
-//    if (ctx.initexpr.exp() != null){
-//      builds(init.expressions(), ctx.initexpr.exp());
-//    }
-//
-//    return arr;
-//  }
+  @Override
+  public ArrayCreation visitArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx) {
+    final ArrayCreation exp = this.ast.newArrayCreation();
+    exp.setType(this.build(ctx.arrayType()));
+    // Can initialize if there is something to initialize.
+    if (ctx.initexpr != null) {
+      exp.setInitializer(this.build(ctx.initexpr));
+    }
+    return exp;
+  }
+
+  @Override public ArrayInitializer visitArrayInit(ExtendedStaticJavaParser.ArrayInitContext ctx) {
+    final ArrayInitializer init = this.ast.newArrayInitializer();
+    this.builds(init.expressions(), ctx.exp());
+
+    return init;
+  }
 
   @Override
   public ConditionalExpression visitCondExp(ExtendedStaticJavaParser.CondExpContext ctx) {
