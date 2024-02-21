@@ -65,33 +65,35 @@ public interface ExtendedStaticJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMethodDeclaration(ExtendedStaticJavaParser.MethodDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code CustomType}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#type}.
+	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCustomType(ExtendedStaticJavaParser.CustomTypeContext ctx);
+	T visitType(ExtendedStaticJavaParser.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ArrayType}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code BooleanType}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#type}.
+	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#booleanType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBooleanType(ExtendedStaticJavaParser.BooleanTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code IntType}
-	 * labeled alternative in {@link ExtendedStaticJavaParser#type}.
+	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#intType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitIntType(ExtendedStaticJavaParser.IntTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#simpleType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSimpleType(ExtendedStaticJavaParser.SimpleTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#arrayType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code VoidType}
 	 * labeled alternative in {@link ExtendedStaticJavaParser#returnType}.

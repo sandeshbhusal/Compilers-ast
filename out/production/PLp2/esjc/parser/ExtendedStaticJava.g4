@@ -40,11 +40,18 @@ methodDeclaration
   ;
 
 type
-  : 'boolean'               #BooleanType
-  | 'int'                   #IntType
-  | ID                      #CustomType
-  | typename=type '[' ']'            #ArrayType // TODO: Add size to arrays
-//  | type '[' size = exp? ']'            #ArrayType
+  : booleanType
+  | intType
+  | simpleType
+  | arrayType
+  ;
+
+booleanType: 'boolean';
+intType: 'int';
+simpleType: ID;
+
+arrayType
+  : (booleanType | intType | ID) '[' size=exp? ']'
   ;
 
 returnType
@@ -90,7 +97,7 @@ assignStatement
   ;
 
 lhs
-  : ID | exp '.' ID | exp '[' exp ']';
+  : ID | qualifier=exp '.' name=ID | arrayname=exp '[' arrayexp=exp ']';
 
 forStatement
   : 'for' '(' forInits? ';' exp? ';' forUpdates? ')' '{' statement* '}';
@@ -149,18 +156,18 @@ exp
     e2=exp                                  #BinaryExp
   | e1=exp
     op=( '==' | '!=' )
-    e2=exp                                  #BinaryExp
-  | e1=exp op='&&' e2=exp                   #BinaryExp
-  | e1=exp op='||' e2=exp                   #BinaryExp
-  | e1=exp op='<<' e2=exp                   #ShiftLeftExp
-  | e1=exp op='>>' e2=exp                   #ShiftRightExp
-  | e1=exp op='>>>' e2=exp                  #UnsignedShiftRightExp
-  | condition=exp '?' p1=exp ':' p2=exp     #CondExp
-  | e1=exp '.' id=ID                        #FieldAccessExp
-  | id=exp '[' inner=exp ']'                #ArrayAccessExp
-  | 'new' name=ID '(' ')'                        #NewExp
-  | 'new' typeid=type '[' exp ']'           #ArrayCreationExp
-  | 'new' typeid=type '[' ']' initexpr=arrayInit #ArrayCreationExp
+    e2=exp                                   #BinaryExp
+  | e1=exp op='&&' e2=exp                    #BinaryExp
+  | e1=exp op='||' e2=exp                    #BinaryExp
+  | e1=exp op='<<' e2=exp                    #ShiftLeftExp
+  | e1=exp op='>>' e2=exp                    #ShiftRightExp
+  | e1=exp op='>>>' e2=exp                   #UnsignedShiftRightExp
+  | condition=exp '?' p1=exp ':' p2=exp      #CondExp
+  | e1=exp '.' id=ID                         #FieldAccessExp
+  | id=exp '[' inner=exp ']'                 #ArrayAccessExp
+  | 'new' name=ID '(' ')'                    #NewExp
+  | 'new' typename=arrayType                    #ArrayCreationExp
+  | 'new' typename=arrayType initexpr=arrayInit #ArrayCreationExp
   ;
 
 arrayInit

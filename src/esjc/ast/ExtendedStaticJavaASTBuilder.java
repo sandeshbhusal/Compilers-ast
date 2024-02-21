@@ -144,14 +144,23 @@ public class ExtendedStaticJavaASTBuilder extends
 //    if (ctx.size != null) {
 //      return this.ast.newArrayType(this.build(ctx.type()));
 //    }
-    return this.ast.newArrayType(this.build(ctx.type()));
+
+    // Check which path to traverse, based on what is present.
+    if (ctx.booleanType() != null) {
+      return this.ast.newArrayType(this.build(ctx.booleanType()));
+    } else if (ctx.intType() != null) {
+      return this.ast.newArrayType(this.build(ctx.intType()));
+    } else {
+      // Should be an ID type.
+      return this.ast.newArrayType(this.ast.newSimpleType(this.ast.newSimpleName(ctx.ID().getText())));
+    }
   }
 
 
-  @Override
-  public SimpleType visitCustomType(ExtendedStaticJavaParser.CustomTypeContext ctx) {
-    return this.ast.newSimpleType(this.ast.newSimpleName(ctx.getText()));
-  }
+//  @Override
+//  public SimpleType visitSimpleType(ExtendedStaticJavaParser.SimpleTypeContext ctx) {
+//    return this.ast.newSimpleType(this.ast.newSimpleName(ctx.getText()));
+//  }
 
   @Override
   public TypeDeclaration visitClassDefinition(final ExtendedStaticJavaParser.ClassDefinitionContext ctx) {
@@ -254,6 +263,11 @@ public class ExtendedStaticJavaASTBuilder extends
     return this.ast.newPrimitiveType(PrimitiveType.INT);
   }
 
+
+  @Override public SimpleType visitSimpleType(ExtendedStaticJavaParser.SimpleTypeContext ctx) {
+    return this.ast.newSimpleType(this.ast.newSimpleName(ctx.ID().getText()));
+  }
+
   @Override
   public QualifiedName visitFieldAccessExp(ExtendedStaticJavaParser.FieldAccessExpContext ctx) {
     return this.ast.newQualifiedName(this.build(ctx), this.ast.newSimpleName(ctx.id.getText()));
@@ -270,19 +284,19 @@ public class ExtendedStaticJavaASTBuilder extends
   }
 
 
-  @Override
-  public ArrayCreation visitArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx) {
-    final ArrayCreation arr = this.ast.newArrayCreation();
-    arr.setType(this.build(ctx.typeid));
-    final ArrayInitializer init = this.ast.newArrayInitializer();
-    arr.setInitializer(init);
-
-    if (ctx.initexpr.exp() != null){
-      builds(init.expressions(), ctx.initexpr.exp());
-    }
-
-    return arr;
-  }
+//  @Override
+//  public ArrayCreation visitArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx) {
+//    final ArrayCreation arr = this.ast.newArrayCreation();
+//    arr.setType(this.build(ctx.type()));
+//    final ArrayInitializer init = this.ast.newArrayInitializer();
+//    arr.setInitializer(init);
+//
+//    if (ctx.initexpr.exp() != null){
+//      builds(init.expressions(), ctx.initexpr.exp());
+//    }
+//
+//    return arr;
+//  }
 
   @Override
   public ConditionalExpression visitCondExp(ExtendedStaticJavaParser.CondExpContext ctx) {
