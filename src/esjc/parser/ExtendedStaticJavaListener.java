@@ -252,15 +252,41 @@ public interface ExtendedStaticJavaListener extends ParseTreeListener {
 	 */
 	void exitAssignStatement(ExtendedStaticJavaParser.AssignStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExtendedStaticJavaParser#lhs}.
+	 * Enter a parse tree produced by the {@code SimpleLHS}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#lhs}.
 	 * @param ctx the parse tree
 	 */
-	void enterLhs(ExtendedStaticJavaParser.LhsContext ctx);
+	void enterSimpleLHS(ExtendedStaticJavaParser.SimpleLHSContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExtendedStaticJavaParser#lhs}.
+	 * Exit a parse tree produced by the {@code SimpleLHS}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#lhs}.
 	 * @param ctx the parse tree
 	 */
-	void exitLhs(ExtendedStaticJavaParser.LhsContext ctx);
+	void exitSimpleLHS(ExtendedStaticJavaParser.SimpleLHSContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FieldAccessLHS}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#lhs}.
+	 * @param ctx the parse tree
+	 */
+	void enterFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FieldAccessLHS}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#lhs}.
+	 * @param ctx the parse tree
+	 */
+	void exitFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ArrayAccessLHS}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#lhs}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayAccessLHS(ExtendedStaticJavaParser.ArrayAccessLHSContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArrayAccessLHS}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#lhs}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayAccessLHS(ExtendedStaticJavaParser.ArrayAccessLHSContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ExtendedStaticJavaParser#forStatement}.
 	 * @param ctx the parse tree

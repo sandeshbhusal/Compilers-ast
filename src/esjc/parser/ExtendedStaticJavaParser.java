@@ -1628,32 +1628,79 @@ public class ExtendedStaticJavaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class LhsContext extends ParserRuleContext {
-		public ExpContext qualifier;
-		public Token name;
+		public LhsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_lhs; }
+	 
+		public LhsContext() { }
+		public void copyFrom(LhsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class SimpleLHSContext extends LhsContext {
+		public TerminalNode ID() { return getToken(ExtendedStaticJavaParser.ID, 0); }
+		public SimpleLHSContext(LhsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ExtendedStaticJavaListener ) ((ExtendedStaticJavaListener)listener).enterSimpleLHS(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ExtendedStaticJavaListener ) ((ExtendedStaticJavaListener)listener).exitSimpleLHS(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ExtendedStaticJavaVisitor ) return ((ExtendedStaticJavaVisitor<? extends T>)visitor).visitSimpleLHS(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ArrayAccessLHSContext extends LhsContext {
 		public ExpContext arrayname;
 		public ExpContext arrayexp;
-		public TerminalNode ID() { return getToken(ExtendedStaticJavaParser.ID, 0); }
 		public List<ExpContext> exp() {
 			return getRuleContexts(ExpContext.class);
 		}
 		public ExpContext exp(int i) {
 			return getRuleContext(ExpContext.class,i);
 		}
-		public LhsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_lhs; }
+		public ArrayAccessLHSContext(LhsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExtendedStaticJavaListener ) ((ExtendedStaticJavaListener)listener).enterLhs(this);
+			if ( listener instanceof ExtendedStaticJavaListener ) ((ExtendedStaticJavaListener)listener).enterArrayAccessLHS(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExtendedStaticJavaListener ) ((ExtendedStaticJavaListener)listener).exitLhs(this);
+			if ( listener instanceof ExtendedStaticJavaListener ) ((ExtendedStaticJavaListener)listener).exitArrayAccessLHS(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExtendedStaticJavaVisitor ) return ((ExtendedStaticJavaVisitor<? extends T>)visitor).visitLhs(this);
+			if ( visitor instanceof ExtendedStaticJavaVisitor ) return ((ExtendedStaticJavaVisitor<? extends T>)visitor).visitArrayAccessLHS(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class FieldAccessLHSContext extends LhsContext {
+		public ExpContext qualifier;
+		public Token name;
+		public ExpContext exp() {
+			return getRuleContext(ExpContext.class,0);
+		}
+		public TerminalNode ID() { return getToken(ExtendedStaticJavaParser.ID, 0); }
+		public FieldAccessLHSContext(LhsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ExtendedStaticJavaListener ) ((ExtendedStaticJavaListener)listener).enterFieldAccessLHS(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ExtendedStaticJavaListener ) ((ExtendedStaticJavaListener)listener).exitFieldAccessLHS(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ExtendedStaticJavaVisitor ) return ((ExtendedStaticJavaVisitor<? extends T>)visitor).visitFieldAccessLHS(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1666,6 +1713,7 @@ public class ExtendedStaticJavaParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
+				_localctx = new SimpleLHSContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(232);
@@ -1673,25 +1721,27 @@ public class ExtendedStaticJavaParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new FieldAccessLHSContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(233);
-				((LhsContext)_localctx).qualifier = exp(0);
+				((FieldAccessLHSContext)_localctx).qualifier = exp(0);
 				setState(234);
 				match(T__15);
 				setState(235);
-				((LhsContext)_localctx).name = match(ID);
+				((FieldAccessLHSContext)_localctx).name = match(ID);
 				}
 				break;
 			case 3:
+				_localctx = new ArrayAccessLHSContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(237);
-				((LhsContext)_localctx).arrayname = exp(0);
+				((ArrayAccessLHSContext)_localctx).arrayname = exp(0);
 				setState(238);
 				match(T__8);
 				setState(239);
-				((LhsContext)_localctx).arrayexp = exp(0);
+				((ArrayAccessLHSContext)_localctx).arrayexp = exp(0);
 				setState(240);
 				match(T__9);
 				}

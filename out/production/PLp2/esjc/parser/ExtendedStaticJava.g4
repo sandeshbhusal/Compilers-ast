@@ -97,7 +97,10 @@ assignStatement
   ;
 
 lhs
-  : ID | qualifier=exp '.' name=ID | arrayname=exp '[' arrayexp=exp ']';
+  : ID #SimpleLHS
+  | qualifier=exp '.' name=ID #FieldAccessLHS
+  | arrayname=exp '[' arrayexp=exp ']' #ArrayAccessLHS
+  ;
 
 forStatement
   : 'for' '(' forInits? ';' exp? ';' forUpdates? ')' '{' statement* '}';

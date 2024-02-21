@@ -157,11 +157,26 @@ public interface ExtendedStaticJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignStatement(ExtendedStaticJavaParser.AssignStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#lhs}.
+	 * Visit a parse tree produced by the {@code SimpleLHS}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#lhs}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLhs(ExtendedStaticJavaParser.LhsContext ctx);
+	T visitSimpleLHS(ExtendedStaticJavaParser.SimpleLHSContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FieldAccessLHS}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#lhs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArrayAccessLHS}
+	 * labeled alternative in {@link ExtendedStaticJavaParser#lhs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayAccessLHS(ExtendedStaticJavaParser.ArrayAccessLHSContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#forStatement}.
 	 * @param ctx the parse tree

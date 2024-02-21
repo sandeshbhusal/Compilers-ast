@@ -90,8 +90,8 @@ public class ExtendedStaticJavaASTBuilder extends
     final Assignment a = this.ast.newAssignment();
     final ExpressionStatement result = this.ast.newExpressionStatement(a);
 
-    a.setLeftHandSide(this.ast.newSimpleName(ctx.assign().lhs().getText()));
-//    a.setLeftHandSide(this.build(ctx.assign().lhs()));
+//    a.setLeftHandSide(this.ast.newSimpleName(ctx.assign().lhs().getText()));
+    a.setLeftHandSide(this.build(ctx.assign().lhs()));
     a.setRightHandSide(this.build(ctx.assign().exp()));
 
     return result;
@@ -146,13 +146,25 @@ public class ExtendedStaticJavaASTBuilder extends
 //    }
 
     // Check which path to traverse, based on what is present.
-    if (ctx.booleanType() != null) {
-      return this.ast.newArrayType(this.build(ctx.booleanType()));
-    } else if (ctx.intType() != null) {
-      return this.ast.newArrayType(this.build(ctx.intType()));
+    if (ctx.size == null) {
+      if (ctx.booleanType() != null) {
+        return this.ast.newArrayType(this.build(ctx.booleanType()));
+      } else if (ctx.intType() != null) {
+        return this.ast.newArrayType(this.build(ctx.intType()));
+      } else {
+        // Should be an ID type.
+        return this.ast.newArrayType(this.ast.newSimpleType(this.ast.newSimpleName(ctx.ID().getText())));
+      }
     } else {
-      // Should be an ID type.
-      return this.ast.newArrayType(this.ast.newSimpleType(this.ast.newSimpleName(ctx.ID().getText())));
+      int size = Integer.parseInt(ctx.size.getText());
+      if (ctx.booleanType() != null) {
+        return this.ast.newArrayType(this.build(ctx.booleanType()), size);
+      } else if (ctx.intType() != null) {
+        return this.ast.newArrayType(this.build(ctx.intType()), size);
+      } else {
+        // Should be an ID type.
+        return this.ast.newArrayType(this.ast.newSimpleType(this.ast.newSimpleName(ctx.ID().getText())), size);
+      }
     }
   }
 
@@ -273,16 +285,6 @@ public class ExtendedStaticJavaASTBuilder extends
     return this.ast.newQualifiedName(this.build(ctx), this.ast.newSimpleName(ctx.id.getText()));
   }
 
-  @Override
-  public ArrayAccess visitArrayAccessExp(ExtendedStaticJavaParser.ArrayAccessExpContext ctx) {
-    final ArrayAccess aac = this.ast.newArrayAccess();
-
-    aac.setArray(this.build(ctx.id));
-    aac.setIndex(this.build(ctx.inner));
-
-    return aac;
-  }
-
 
   @Override
   public ArrayCreation visitArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx) {
@@ -295,11 +297,41 @@ public class ExtendedStaticJavaASTBuilder extends
     return exp;
   }
 
-  @Override public ArrayInitializer visitArrayInit(ExtendedStaticJavaParser.ArrayInitContext ctx) {
+  @Override
+  public ArrayInitializer visitArrayInit(ExtendedStaticJavaParser.ArrayInitContext ctx) {
     final ArrayInitializer init = this.ast.newArrayInitializer();
     this.builds(init.expressions(), ctx.exp());
 
     return init;
+  }
+
+  @Override
+  public ArrayAccess visitArrayAccessExp(ExtendedStaticJavaParser.ArrayAccessExpContext ctx) {
+    final ArrayAccess exp = this.ast.newArrayAccess();
+    exp.setArray(this.build(ctx.id));
+    exp.setIndex(this.build(ctx.inner));
+
+    System.out.println(exp.toString());
+    System.out.flush();
+    return exp;
+  }
+
+  @Override public FieldAccess visitFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx) {
+    final FieldAccess acc = this.ast.newFieldAccess();
+    acc.setExpression(this.build(ctx.qualifier));
+    acc.setName(this.ast.newSimpleName(ctx.name.getText()));
+    return acc;
+  }
+
+  @Override public ArrayAccess visitArrayAccessLHS(ExtendedStaticJavaParser.ArrayAccessLHSContext ctx) {
+    final ArrayAccess acc = this.ast.newArrayAccess();
+    acc.setArray(this.build(ctx.arrayname));
+    acc.setIndex(this.build(ctx.arrayexp));
+    return acc;
+  }
+
+  @Override public SimpleName visitSimpleLHS(ExtendedStaticJavaParser.SimpleLHSContext ctx) {
+    return this.ast.newSimpleName(ctx.ID().getText());
   }
 
   @Override

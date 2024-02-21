@@ -305,13 +305,37 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLhs(ExtendedStaticJavaParser.LhsContext ctx) { }
+	@Override public void enterSimpleLHS(ExtendedStaticJavaParser.SimpleLHSContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLhs(ExtendedStaticJavaParser.LhsContext ctx) { }
+	@Override public void exitSimpleLHS(ExtendedStaticJavaParser.SimpleLHSContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayAccessLHS(ExtendedStaticJavaParser.ArrayAccessLHSContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayAccessLHS(ExtendedStaticJavaParser.ArrayAccessLHSContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
