@@ -40,15 +40,16 @@ methodDeclaration
   ;
 
 type
-  : ( typename = basicType | identifier = ID | arraytype = arrayType ) ( '[' ']')?;
+  : ( typename = basicType | identifier = ID | arrayType )
+  ;
+
+arrayType
+  : (basicType | ID) '[' ']'
+  ;
 
 basicType
   : 'boolean'                #BooleanType
   | 'int'                    #IntType
-  ;
-
-arrayType
-  : ID '[' ']'
   ;
 
 returnType
