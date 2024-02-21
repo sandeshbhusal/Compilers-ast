@@ -40,16 +40,11 @@ methodDeclaration
   ;
 
 type
-  : ( typename = basicType | identifier = ID | arrayType )
-  ;
-
-arrayType
-  : (basicType | ID) '[' ']'
-  ;
-
-basicType
-  : 'boolean'                #BooleanType
-  | 'int'                    #IntType
+  : 'boolean'               #BooleanType
+  | 'int'                   #IntType
+  | ID                      #CustomType
+  | typename=type '[' ']'            #ArrayType // TODO: Add size to arrays
+//  | type '[' size = exp? ']'            #ArrayType
   ;
 
 returnType

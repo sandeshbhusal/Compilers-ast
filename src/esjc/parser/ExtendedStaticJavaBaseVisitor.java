@@ -81,7 +81,7 @@ public class ExtendedStaticJavaBaseVisitor<T> extends AbstractParseTreeVisitor<T
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitType(ExtendedStaticJavaParser.TypeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCustomType(ExtendedStaticJavaParser.CustomTypeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

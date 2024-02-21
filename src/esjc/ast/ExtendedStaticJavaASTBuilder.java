@@ -115,7 +115,15 @@ public class ExtendedStaticJavaASTBuilder extends
 
   @Override
   public ArrayType visitArrayType(ExtendedStaticJavaParser.ArrayTypeContext ctx) {
+//    if (ctx.size != null) {
+//      return this.ast.newArrayType(this.build(ctx.type()));
+//    }
     return this.ast.newArrayType(this.build(ctx.type()));
+  }
+
+  @Override
+  public SimpleType visitCustomType(ExtendedStaticJavaParser.CustomTypeContext ctx) {
+    return this.ast.newSimpleType(this.ast.newSimpleName(ctx.getText()));
   }
 
   @Override

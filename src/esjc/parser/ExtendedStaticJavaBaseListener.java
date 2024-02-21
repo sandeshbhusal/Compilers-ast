@@ -125,13 +125,13 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(ExtendedStaticJavaParser.TypeContext ctx) { }
+	@Override public void enterCustomType(ExtendedStaticJavaParser.CustomTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(ExtendedStaticJavaParser.TypeContext ctx) { }
+	@Override public void exitCustomType(ExtendedStaticJavaParser.CustomTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
