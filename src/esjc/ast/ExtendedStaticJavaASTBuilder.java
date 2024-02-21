@@ -186,10 +186,9 @@ public class ExtendedStaticJavaASTBuilder extends
   @Override
   public CompilationUnit visitCompilationUnit(final ExtendedStaticJavaParser.CompilationUnitContext ctx) {
     final CompilationUnit result = this.ast.newCompilationUnit();
-
-    this.builds(result.types(),ctx.simpleClassDefintion());
+    this.builds(result.types(), ctx.scd1);
     add(result.types(), this.<TypeDeclaration> build(ctx.classDefinition()));
-
+    this.builds(result.types(), ctx.scd2);
     return result;
   }
 

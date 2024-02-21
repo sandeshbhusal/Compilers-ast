@@ -171,8 +171,9 @@ public class ExtendedStaticJavaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class CompilationUnitContext extends ParserRuleContext {
-		public SimpleClassDefintionContext scd1;
-		public SimpleClassDefintionContext scd2;
+		public SimpleClassDefintionContext simpleClassDefintion;
+		public List<SimpleClassDefintionContext> scd1 = new ArrayList<SimpleClassDefintionContext>();
+		public List<SimpleClassDefintionContext> scd2 = new ArrayList<SimpleClassDefintionContext>();
 		public ClassDefinitionContext classDefinition() {
 			return getRuleContext(ClassDefinitionContext.class,0);
 		}
@@ -215,7 +216,8 @@ public class ExtendedStaticJavaParser extends Parser {
 				{
 				{
 				setState(71);
-				((CompilationUnitContext)_localctx).scd1 = simpleClassDefintion();
+				((CompilationUnitContext)_localctx).simpleClassDefintion = simpleClassDefintion();
+				((CompilationUnitContext)_localctx).scd1.add(((CompilationUnitContext)_localctx).simpleClassDefintion);
 				}
 				}
 				setState(76);
@@ -231,7 +233,8 @@ public class ExtendedStaticJavaParser extends Parser {
 				{
 				{
 				setState(78);
-				((CompilationUnitContext)_localctx).scd2 = simpleClassDefintion();
+				((CompilationUnitContext)_localctx).simpleClassDefintion = simpleClassDefintion();
+				((CompilationUnitContext)_localctx).scd2.add(((CompilationUnitContext)_localctx).simpleClassDefintion);
 				}
 				}
 				setState(83);
