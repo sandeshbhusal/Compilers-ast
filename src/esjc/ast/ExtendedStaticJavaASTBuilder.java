@@ -175,10 +175,19 @@ public class ExtendedStaticJavaASTBuilder extends
     return result;
   }
 
+
+  @Override public TypeDeclaration visitSimpleClassDefintion(ExtendedStaticJavaParser.SimpleClassDefintionContext ctx) {
+    final TypeDeclaration decl = this.ast.newTypeDeclaration();
+    decl.setName(this.ast.newSimpleName(ctx.ID().getText()));
+
+    return decl;
+  }
+
   @Override
   public CompilationUnit visitCompilationUnit(final ExtendedStaticJavaParser.CompilationUnitContext ctx) {
     final CompilationUnit result = this.ast.newCompilationUnit();
 
+    this.builds(result.types(),ctx.simpleClassDefintion());
     add(result.types(), this.<TypeDeclaration> build(ctx.classDefinition()));
 
     return result;

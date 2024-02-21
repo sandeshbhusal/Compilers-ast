@@ -3,7 +3,7 @@ grammar ExtendedStaticJava;
 program: compilationUnit EOF;
 
 compilationUnit
-  : simpleClassDefintion* classDefinition simpleClassDefintion*
+  : scd1=simpleClassDefintion* classDefinition scd2=simpleClassDefintion*
   ;
 
 classDefinition
