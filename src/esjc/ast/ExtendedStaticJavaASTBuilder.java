@@ -393,6 +393,32 @@ public class ExtendedStaticJavaASTBuilder extends
     return this.ast.newExpressionStatement(exp);
   }
 
+  @Override public ForStatement visitForStatement(ExtendedStaticJavaParser.ForStatementContext ctx) {
+    final ForStatement stmt = this.ast.newForStatement();
+
+    // Add content
+    final Block contents = this.ast.newBlock();
+    if (ctx.statements != null) {
+      this.builds(contents.statements(), ctx.statements);
+    }
+
+    stmt.setBody(contents);
+
+    // Add expression
+    if (ctx.cond != null)
+      stmt.setExpression(this.build(ctx.exp()));
+
+    // Add initializers
+    if (ctx.inits != null)
+      this.builds(stmt.initializers(), ctx.inits.initexpr);
+
+    // Add updaters
+    if (ctx.updates != null)
+      this.builds(stmt.updaters(), ctx.updates.updateexpr);
+
+    return stmt;
+  }
+
   @Override
   public MethodInvocation visitInvokeExp(final ExtendedStaticJavaParser.InvokeExpContext ctx) {
     return this.build(ctx.invoke());

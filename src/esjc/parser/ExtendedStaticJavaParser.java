@@ -1761,6 +1761,11 @@ public class ExtendedStaticJavaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ForStatementContext extends ParserRuleContext {
+		public ForInitsContext inits;
+		public ExpContext cond;
+		public ForUpdatesContext updates;
+		public StatementContext statement;
+		public List<StatementContext> statements = new ArrayList<StatementContext>();
 		public ForInitsContext forInits() {
 			return getRuleContext(ForInitsContext.class,0);
 		}
@@ -1812,7 +1817,7 @@ public class ExtendedStaticJavaParser extends Parser {
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1970329010307328L) != 0)) {
 				{
 				setState(246);
-				forInits();
+				((ForStatementContext)_localctx).inits = forInits();
 				}
 			}
 
@@ -1824,7 +1829,7 @@ public class ExtendedStaticJavaParser extends Parser {
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1970329010307328L) != 0)) {
 				{
 				setState(250);
-				exp(0);
+				((ForStatementContext)_localctx).cond = exp(0);
 				}
 			}
 
@@ -1836,7 +1841,7 @@ public class ExtendedStaticJavaParser extends Parser {
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1970329010307328L) != 0)) {
 				{
 				setState(254);
-				forUpdates();
+				((ForStatementContext)_localctx).updates = forUpdates();
 				}
 			}
 
@@ -1851,7 +1856,8 @@ public class ExtendedStaticJavaParser extends Parser {
 				{
 				{
 				setState(259);
-				statement();
+				((ForStatementContext)_localctx).statement = statement();
+				((ForStatementContext)_localctx).statements.add(((ForStatementContext)_localctx).statement);
 				}
 				}
 				setState(264);
@@ -1875,6 +1881,8 @@ public class ExtendedStaticJavaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ForInitsContext extends ParserRuleContext {
+		public AssignContext assign;
+		public List<AssignContext> initexpr = new ArrayList<AssignContext>();
 		public List<AssignContext> assign() {
 			return getRuleContexts(AssignContext.class);
 		}
@@ -1908,7 +1916,8 @@ public class ExtendedStaticJavaParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(267);
-			assign();
+			((ForInitsContext)_localctx).assign = assign();
+			((ForInitsContext)_localctx).initexpr.add(((ForInitsContext)_localctx).assign);
 			setState(272);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1918,7 +1927,8 @@ public class ExtendedStaticJavaParser extends Parser {
 				setState(268);
 				match(T__13);
 				setState(269);
-				assign();
+				((ForInitsContext)_localctx).assign = assign();
+				((ForInitsContext)_localctx).initexpr.add(((ForInitsContext)_localctx).assign);
 				}
 				}
 				setState(274);
@@ -1940,6 +1950,8 @@ public class ExtendedStaticJavaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ForUpdatesContext extends ParserRuleContext {
+		public IncDecContext incDec;
+		public List<IncDecContext> updateexpr = new ArrayList<IncDecContext>();
 		public List<IncDecContext> incDec() {
 			return getRuleContexts(IncDecContext.class);
 		}
@@ -1973,7 +1985,8 @@ public class ExtendedStaticJavaParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(275);
-			incDec();
+			((ForUpdatesContext)_localctx).incDec = incDec();
+			((ForUpdatesContext)_localctx).updateexpr.add(((ForUpdatesContext)_localctx).incDec);
 			setState(280);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1983,7 +1996,8 @@ public class ExtendedStaticJavaParser extends Parser {
 				setState(276);
 				match(T__13);
 				setState(277);
-				incDec();
+				((ForUpdatesContext)_localctx).incDec = incDec();
+				((ForUpdatesContext)_localctx).updateexpr.add(((ForUpdatesContext)_localctx).incDec);
 				}
 				}
 				setState(282);
