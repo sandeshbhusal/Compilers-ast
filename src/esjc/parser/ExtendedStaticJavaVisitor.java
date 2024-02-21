@@ -184,18 +184,6 @@ public interface ExtendedStaticJavaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitForStatement(ExtendedStaticJavaParser.ForStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#forInits}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitForInits(ExtendedStaticJavaParser.ForInitsContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#forUpdates}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitForUpdates(ExtendedStaticJavaParser.ForUpdatesContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link ExtendedStaticJavaParser#incDec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

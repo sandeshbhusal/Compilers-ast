@@ -103,13 +103,7 @@ lhs
   ;
 
 forStatement
-  : 'for' '(' inits=forInits? ';' cond=exp? ';' updates=forUpdates? ')' '{' statements+=statement* '}';
-
-forInits
-  : initexpr+=assign (',' initexpr+=assign )*;
-
-forUpdates
-  : updateexpr+=incDec (',' updateexpr+=incDec )*;
+  : 'for' '(' (inits+=assign (',' inits+=assign)*)? ';' cond=exp? ';' (updates+=incDec (',' updates+=incDec)*)? ')' '{' statements+=statement* '}';
 
 incDec
   : operand=lhs operator='++'

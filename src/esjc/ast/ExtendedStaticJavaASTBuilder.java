@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import esjc.parser.*;
-import jdk.jfr.StackTrace;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.eclipse.jdt.core.dom.*;
 
@@ -109,14 +108,19 @@ public class ExtendedStaticJavaASTBuilder extends
   @Override
   public ExpressionStatement visitAssignStatement(
           final ExtendedStaticJavaParser.AssignStatementContext ctx) {
-    final Assignment a = this.ast.newAssignment();
+
+    final Assignment a = this.build(ctx.assign());
     final ExpressionStatement result = this.ast.newExpressionStatement(a);
 
-//    a.setLeftHandSide(this.ast.newSimpleName(ctx.assign().lhs().getText()));
-    a.setLeftHandSide(this.build(ctx.assign().lhs()));
-    a.setRightHandSide(this.build(ctx.assign().exp()));
-
     return result;
+  }
+
+  @Override
+  public Assignment visitAssign(final ExtendedStaticJavaParser.AssignContext ctx) {
+    final Assignment a = this.ast.newAssignment();
+    a.setLeftHandSide(this.build(ctx.lhs()));
+    a.setRightHandSide(this.build(ctx.exp()));
+    return a;
   }
 
   @Override
@@ -410,11 +414,11 @@ public class ExtendedStaticJavaASTBuilder extends
 
     // Add initializers
     if (ctx.inits != null)
-      this.builds(stmt.initializers(), ctx.inits.initexpr);
+      this.builds(stmt.initializers(), ctx.inits);
 
     // Add updaters
     if (ctx.updates != null)
-      this.builds(stmt.updaters(), ctx.updates.updateexpr);
+      this.builds(stmt.updaters(), ctx.updates);
 
     return stmt;
   }

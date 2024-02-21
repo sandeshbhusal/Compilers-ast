@@ -353,30 +353,6 @@ public class ExtendedStaticJavaBaseListener implements ExtendedStaticJavaListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterForInits(ExtendedStaticJavaParser.ForInitsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitForInits(ExtendedStaticJavaParser.ForInitsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterForUpdates(ExtendedStaticJavaParser.ForUpdatesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitForUpdates(ExtendedStaticJavaParser.ForUpdatesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterIncDec(ExtendedStaticJavaParser.IncDecContext ctx) { }
 	/**
 	 * {@inheritDoc}

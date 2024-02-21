@@ -298,26 +298,6 @@ public interface ExtendedStaticJavaListener extends ParseTreeListener {
 	 */
 	void exitForStatement(ExtendedStaticJavaParser.ForStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExtendedStaticJavaParser#forInits}.
-	 * @param ctx the parse tree
-	 */
-	void enterForInits(ExtendedStaticJavaParser.ForInitsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExtendedStaticJavaParser#forInits}.
-	 * @param ctx the parse tree
-	 */
-	void exitForInits(ExtendedStaticJavaParser.ForInitsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ExtendedStaticJavaParser#forUpdates}.
-	 * @param ctx the parse tree
-	 */
-	void enterForUpdates(ExtendedStaticJavaParser.ForUpdatesContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExtendedStaticJavaParser#forUpdates}.
-	 * @param ctx the parse tree
-	 */
-	void exitForUpdates(ExtendedStaticJavaParser.ForUpdatesContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ExtendedStaticJavaParser#incDec}.
 	 * @param ctx the parse tree
 	 */
