@@ -49,6 +49,8 @@ public class ExtendedStaticJavaASTBuilder extends
     ExtendedStaticJavaASTBuilder.binopMap.put("*", InfixExpression.Operator.TIMES);
     ExtendedStaticJavaASTBuilder.binopMap.put("/", InfixExpression.Operator.DIVIDE);
     ExtendedStaticJavaASTBuilder.binopMap.put("%", InfixExpression.Operator.REMAINDER);
+    ExtendedStaticJavaASTBuilder.binopMap.put("<<", InfixExpression.Operator.LEFT_SHIFT);
+    ExtendedStaticJavaASTBuilder.binopMap.put(">>", InfixExpression.Operator.RIGHT_SHIFT_SIGNED);
     ExtendedStaticJavaASTBuilder.binopMap.put(">>>", InfixExpression.Operator.RIGHT_SHIFT_UNSIGNED);
 
     unopMap = new HashMap<>(4);
@@ -108,6 +110,30 @@ public class ExtendedStaticJavaASTBuilder extends
     return result;
   }
 
+  @Override public InfixExpression visitShiftLeftExp(ExtendedStaticJavaParser.ShiftLeftExpContext ctx) {
+    final InfixExpression exp = this.ast.newInfixExpression();
+    exp.setLeftOperand(this.build(ctx.e1));
+    exp.setRightOperand(this.build(ctx.e2));
+    exp.setOperator(InfixExpression.Operator.LEFT_SHIFT);
+    return exp;
+  }
+
+  @Override public InfixExpression visitShiftRightExp(ExtendedStaticJavaParser.ShiftRightExpContext ctx) {
+    final InfixExpression exp = this.ast.newInfixExpression();
+    exp.setLeftOperand(this.build(ctx.e1));
+    exp.setRightOperand(this.build(ctx.e2));
+    exp.setOperator(InfixExpression.Operator.RIGHT_SHIFT_SIGNED);
+    return exp;
+  }
+
+  @Override public InfixExpression visitUnsignedShiftRightExp(ExtendedStaticJavaParser.UnsignedShiftRightExpContext ctx){
+    final InfixExpression exp = this.ast.newInfixExpression();
+    exp.setLeftOperand(this.build(ctx.e1));
+    exp.setRightOperand(this.build(ctx.e2));
+    exp.setOperator(InfixExpression.Operator.RIGHT_SHIFT_UNSIGNED);
+    return exp;
+  }
+
   @Override
   public PrimitiveType visitBooleanType(final ExtendedStaticJavaParser.BooleanTypeContext ctx) {
     return this.ast.newPrimitiveType(PrimitiveType.BOOLEAN);
@@ -120,6 +146,7 @@ public class ExtendedStaticJavaASTBuilder extends
 //    }
     return this.ast.newArrayType(this.build(ctx.type()));
   }
+
 
   @Override
   public SimpleType visitCustomType(ExtendedStaticJavaParser.CustomTypeContext ctx) {
