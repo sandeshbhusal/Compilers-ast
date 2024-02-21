@@ -387,14 +387,18 @@ public class ExtendedStaticJavaASTBuilder extends
 
 
   @Override public ExpressionStatement visitIncDecStatement(ExtendedStaticJavaParser.IncDecStatementContext ctx) {
+    return this.ast.newExpressionStatement(this.build(ctx.incDec()));
+  }
+
+  @Override public PostfixExpression visitIncDec(ExtendedStaticJavaParser.IncDecContext ctx) {
     PostfixExpression exp = this.ast.newPostfixExpression();
-    exp.setOperand(this.build(ctx.incDec().operand));
-    switch (ctx.incDec().operator.getText()) {
+    exp.setOperand(this.build(ctx.operand));
+    switch (ctx.operator.getText()) {
       case "--": exp.setOperator(PostfixExpression.Operator.DECREMENT); break;
       case "++": exp.setOperator(PostfixExpression.Operator.INCREMENT); break;
       default: throw new IllegalArgumentException("Illegal postfix operator");
     };
-    return this.ast.newExpressionStatement(exp);
+    return exp;
   }
 
   @Override public ForStatement visitForStatement(ExtendedStaticJavaParser.ForStatementContext ctx) {
