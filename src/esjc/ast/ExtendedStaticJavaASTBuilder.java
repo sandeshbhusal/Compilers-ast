@@ -304,8 +304,7 @@ public class ExtendedStaticJavaASTBuilder extends
 
   @Override
   public QualifiedName visitFieldAccessExp(ExtendedStaticJavaParser.FieldAccessExpContext ctx) {
-//    return this.ast.newQualifiedName(this.build(ctx.e1), this.build(ctx.id));
-    return this.ast.newQualifiedName(this.build(ctx.e1), this.build(ctx.id));
+    return this.ast.newQualifiedName(this.build(ctx.e1), this.ast.newSimpleName(ctx.id.getText()));
   }
 
   @Override
@@ -342,11 +341,8 @@ public class ExtendedStaticJavaASTBuilder extends
     return exp;
   }
 
-  @Override public FieldAccess visitFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx) {
-    final FieldAccess acc = this.ast.newFieldAccess();
-    acc.setExpression(this.build(ctx.qualifier));
-    acc.setName(this.ast.newSimpleName(ctx.name.getText()));
-    return acc;
+  @Override public QualifiedName visitFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx) {
+    return this.ast.newQualifiedName(this.build(ctx.qualifier), this.ast.newSimpleName(ctx.ID().getText()));
   }
 
   @Override public ArrayAccess visitArrayAccessLHS(ExtendedStaticJavaParser.ArrayAccessLHSContext ctx) {

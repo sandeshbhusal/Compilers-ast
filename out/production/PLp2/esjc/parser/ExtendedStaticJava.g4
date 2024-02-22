@@ -98,8 +98,8 @@ assignStatement
 
 lhs
   : ID #SimpleLHS
-  | qualifier=exp '.' name=ID #FieldAccessLHS
-  | arrayname=exp '[' arrayexp=exp ']' #ArrayAccessLHS
+  | qualifier=lhs '.' name=ID #FieldAccessLHS
+  | arrayname=lhs '[' arrayexp=exp ']' #ArrayAccessLHS
   ;
 
 forStatement
@@ -162,8 +162,8 @@ exp
   | e1=exp op='>>' e2=exp                    #ShiftRightExp
   | e1=exp op='>>>' e2=exp                   #UnsignedShiftRightExp
   | condition=exp '?' p1=exp ':' p2=exp      #CondExp
-  | e1=exp '.' id=exp                         #FieldAccessExp
-  | id=exp '[' inner=exp ']'                 #ArrayAccessExp
+  | e1=lhs '.' id=ID                         #FieldAccessExp
+  | id=lhs '[' inner=exp ']'                 #ArrayAccessExp
   | 'new' name=ID '(' ')'                    #NewExp
   | 'new' typename=arrayType                    #ArrayCreationExp
   | 'new' typename=arrayType initexpr=arrayInit #ArrayCreationExp
