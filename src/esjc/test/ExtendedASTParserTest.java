@@ -38,7 +38,7 @@ public class ExtendedASTParserTest {
   private static void testFail(final String filename) {
     System.out.println("*** Begin test: " + filename);
     try {
-      parse(filename);
+      Pair<String, CompilationUnit> output = parse(filename);
       System.out.println("*** End FAILING test: " + filename);
       System.out.println();
       System.out.flush();

@@ -103,6 +103,7 @@ public class ExtendedStaticJavaASTBuilder extends
     if (trees != null) {
       for (final E e : trees) {
         add(l, build(e));
+        System.err.println(build(e).toString());
       }
     }
   }
@@ -303,8 +304,12 @@ public class ExtendedStaticJavaASTBuilder extends
   }
 
   @Override
-  public QualifiedName visitFieldAccessExp(ExtendedStaticJavaParser.FieldAccessExpContext ctx) {
-    return this.ast.newQualifiedName(this.build(ctx.e1), this.ast.newSimpleName(ctx.id.getText()));
+  public FieldAccess visitFieldAccessExp(ExtendedStaticJavaParser.FieldAccessExpContext ctx) {
+      final FieldAccess acc = this.ast.newFieldAccess();
+      acc.setExpression(this.build(ctx.exp()));
+      acc.setName(this.ast.newSimpleName(ctx.ID().getText()));
+
+      return acc;
   }
 
   @Override
@@ -341,8 +346,14 @@ public class ExtendedStaticJavaASTBuilder extends
     return exp;
   }
 
-  @Override public QualifiedName visitFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx) {
-    return this.ast.newQualifiedName(this.build(ctx.qualifier), this.ast.newSimpleName(ctx.ID().getText()));
+  @Override public FieldAccess visitFieldAccessLHS(ExtendedStaticJavaParser.FieldAccessLHSContext ctx) {
+    final FieldAccess acc = this.ast.newFieldAccess();
+    acc.setExpression(this.build(ctx.qualifier));
+    acc.setName(this.ast.newSimpleName(ctx.ID().getText()));
+
+    return acc;
+
+//    return this.ast.newQualifiedName(this.build(ctx.qualifier), this.ast.newSimpleName(ctx.ID().getText()));
   }
 
   @Override public ArrayAccess visitArrayAccessLHS(ExtendedStaticJavaParser.ArrayAccessLHSContext ctx) {

@@ -98,8 +98,8 @@ assignStatement
 
 lhs
   : ID #SimpleLHS
-  | qualifier=lhs '.' name=ID #FieldAccessLHS
-  | arrayname=lhs '[' arrayexp=exp ']' #ArrayAccessLHS
+  | qualifier=exp '.' name=ID #FieldAccessLHS
+  | arrayname=exp '[' arrayexp=exp ']' #ArrayAccessLHS
   ;
 
 forStatement
@@ -137,34 +137,36 @@ returnStatement
 
 exp
   : INT                      { new java.math.BigInteger($INT.text).bitLength() < 32 }?
-                                            #IntLiteral
-  | booleanLiteral                          #LiteralExp
-  | 'null'                                  #NullLiteral
-  | '(' exp ')'                             #ParenExp
-  | invoke                                  #InvokeExp
-  | ID                                      #IdExp
-  | op=( '-' | '+' | '!' | '~' ) exp        #UnaryExp
+                                                #IntLiteral
+  | booleanLiteral                              #LiteralExp
+  | 'null'                                      #NullLiteral
+  | '(' exp ')'                                 #ParenExp
+  | invoke                                      #InvokeExp
+  | ID                                          #IdExp
+  | op=( '-' | '+' | '!' | '~' ) exp            #UnaryExp
   | e1=exp
     op=( '*' | '/' | '%' )
-    e2=exp                                  #BinaryExp
+    e2=exp                                      #BinaryExp
   | e1=exp
     op=( '+' | '-' )
-    e2=exp                                  #BinaryExp
+    e2=exp                                      #BinaryExp
   | e1=exp
     op=( '<' | '>' | '<=' | '>=' )
-    e2=exp                                  #BinaryExp
+    e2=exp                                      #BinaryExp
   | e1=exp
     op=( '==' | '!=' )
-    e2=exp                                   #BinaryExp
-  | e1=exp op='&&' e2=exp                    #BinaryExp
-  | e1=exp op='||' e2=exp                    #BinaryExp
-  | e1=exp op='<<' e2=exp                    #ShiftLeftExp
-  | e1=exp op='>>' e2=exp                    #ShiftRightExp
-  | e1=exp op='>>>' e2=exp                   #UnsignedShiftRightExp
-  | condition=exp '?' p1=exp ':' p2=exp      #CondExp
-  | e1=lhs '.' id=ID                         #FieldAccessExp
-  | id=lhs '[' inner=exp ']'                 #ArrayAccessExp
-  | 'new' name=ID '(' ')'                    #NewExp
+    e2=exp                                      #BinaryExp
+  | e1=exp op='&&' e2=exp                       #BinaryExp
+  | e1=exp op='||' e2=exp                       #BinaryExp
+  | e1=exp op='<<' e2=exp                       #ShiftLeftExp
+  | e1=exp op='>>' e2=exp                       #ShiftRightExp
+  | e1=exp op='>>>' e2=exp                      #UnsignedShiftRightExp
+  | condition=exp '?' p1=exp ':' p2=exp         #CondExp
+
+  | e1=exp '.' id=ID                            #FieldAccessExp
+  | id=exp '[' inner=exp ']'                    #ArrayAccessExp
+
+  | 'new' name=ID '(' ')'                       #NewExp
   | 'new' typename=arrayType                    #ArrayCreationExp
   | 'new' typename=arrayType initexpr=arrayInit #ArrayCreationExp
   ;
