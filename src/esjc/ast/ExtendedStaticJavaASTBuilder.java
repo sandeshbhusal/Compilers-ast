@@ -321,6 +321,10 @@ public class ExtendedStaticJavaASTBuilder extends
       exp.setInitializer(this.build(ctx.initexpr));
     }
     if (ctx.arrayType().size != null) {
+      if (ctx.initexpr != null) {
+        // Throw some exception.
+        throw new IllegalArgumentException("Cannot have both dimension and initializer");
+      }
       Expression e = this.build(ctx.arrayType().size);
       exp.dimensions().add(e);
     }
