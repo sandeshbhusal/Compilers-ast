@@ -14,7 +14,7 @@ classDefinition
   ;
 
 simpleClassDefintion
-  : 'class' ID '{' publicFieldDeclaration* '}';
+  : 'class' ID '{' declarations+=publicFieldDeclaration* '}';
 
 publicFieldDeclaration
   : 'public' type ID ';';
@@ -162,7 +162,7 @@ exp
   | e1=exp op='>>' e2=exp                    #ShiftRightExp
   | e1=exp op='>>>' e2=exp                   #UnsignedShiftRightExp
   | condition=exp '?' p1=exp ':' p2=exp      #CondExp
-  | e1=exp '.' id=ID                         #FieldAccessExp
+  | e1=exp '.' id=exp                         #FieldAccessExp
   | id=exp '[' inner=exp ']'                 #ArrayAccessExp
   | 'new' name=ID '(' ')'                    #NewExp
   | 'new' typename=arrayType                    #ArrayCreationExp

@@ -1,5 +1,7 @@
 package esjc.ast;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -204,6 +206,23 @@ public class ExtendedStaticJavaASTBuilder extends
     final TypeDeclaration decl = this.ast.newTypeDeclaration();
     decl.setName(this.ast.newSimpleName(ctx.ID().getText()));
 
+    if (ctx.declarations != null)
+        builds(decl.bodyDeclarations(), ctx.declarations);
+
+    return decl;
+  }
+
+  @Override
+  public FieldDeclaration visitPublicFieldDeclaration(ExtendedStaticJavaParser.PublicFieldDeclarationContext ctx) {
+    final VariableDeclarationFragment frag = this.ast.newVariableDeclarationFragment();
+    final FieldDeclaration decl = this.ast.newFieldDeclaration(frag);
+
+    decl.setType(this.build(ctx.type()));
+    frag.setName(this.ast.newSimpleName(ctx.ID().getText()));
+
+    final Modifier mod = this.ast.newModifier(Modifier.ModifierKeyword.toKeyword("public"));
+    decl.modifiers().add(mod);
+
     return decl;
   }
 
@@ -285,9 +304,9 @@ public class ExtendedStaticJavaASTBuilder extends
 
   @Override
   public QualifiedName visitFieldAccessExp(ExtendedStaticJavaParser.FieldAccessExpContext ctx) {
-    return this.ast.newQualifiedName(this.build(ctx), this.ast.newSimpleName(ctx.id.getText()));
+//    return this.ast.newQualifiedName(this.build(ctx.e1), this.build(ctx.id));
+    return this.ast.newQualifiedName(this.build(ctx.e1), this.build(ctx.id));
   }
-
 
   @Override
   public ArrayCreation visitArrayCreationExp(ExtendedStaticJavaParser.ArrayCreationExpContext ctx) {
